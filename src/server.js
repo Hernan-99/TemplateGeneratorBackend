@@ -9,6 +9,7 @@ const credentials = require("./middlewares/credentials.js");
 
 const cookieParser = require("cookie-parser");
 const initDB = require("./config/initDB.js");
+initDB();
 
 // Middlewares
 app.use(credentials);
@@ -33,18 +34,5 @@ app.use("/logout", require("./routes/logout.js"));
 // Middleware para proteger rutas privadas
 app.use(verifyJWT);
 app.use("/templates", require("./routes/api/templates.js"));
-
-// conexion a la db y levantar servidor | IIFE
-(async () => {
-  try {
-    await initDB();
-    console.log("✅ Base de datos inicializada");
-    // app.listen(PORT, () => {
-    //   console.log(`Servidor corriendo en el localhost:${PORT}`);
-    // });
-  } catch (err) {
-    console.error("❌ Falló la inicialización de la app:", err);
-  }
-})();
 
 module.exports = app;
