@@ -1,4 +1,11 @@
+// api/index.js
 const serverless = require("serverless-http");
-const app = require("../src/server.js");
+const express = require("express");
+const app = express();
 
-module.exports = serverless(app);
+// middlewares, rutas, etc.
+app.get("/", (req, res) => {
+  res.send("Bienvenido a la API serverless!");
+});
+
+module.exports.handler = serverless(app);
