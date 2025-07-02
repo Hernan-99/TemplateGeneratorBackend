@@ -1,5 +1,4 @@
 const express = require("express");
-const serverless = require("serverless-http");
 const app = express();
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions.config.js");
@@ -18,7 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-// autenticacion - rutas públicas
+// rutas públicas
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/html; charset=utf-8");
   res.statusCode = 200;
@@ -48,4 +47,4 @@ app.use("/templates", require("./routes/api/templates.js"));
   }
 })();
 
-module.exports = serverless(app);
+module.exports = app;
